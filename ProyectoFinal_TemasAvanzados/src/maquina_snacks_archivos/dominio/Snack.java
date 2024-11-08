@@ -39,6 +39,10 @@ public class Snack implements Serializable {
       this.precio = precio;
    }
 
+   public String escribirSnack(){
+      return idSnack + "," + nombre + "," + precio;
+   }
+
    @Override
    public String toString() {
       return "Snack{" +

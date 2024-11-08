@@ -13,7 +13,7 @@ public class MaquinaSnacks {
         var salir = false;
         Scanner input = new Scanner(System.in);
         List<Snack> productos = new ArrayList<>();
-        System.out.println("*** Maquina de Snacks *** + \n");
+        System.out.println("*** Maquina de ServicioSnacksLista *** + \n");
         Snacks.mostrarSnacks();
         while (!salir){
             try {
@@ -29,8 +29,8 @@ public class MaquinaSnacks {
 
     private static int mostarMenu(Scanner input){
         System.out.print("""
-                ### Snacks disponibles ###
-                1. Comprar Snacks
+                ### ServicioSnacksLista disponibles ###
+                1. Comprar ServicioSnacksLista
                 2. Mostrar ticket
                 3. Agregar nuevo snack
                 4. salir.
@@ -80,7 +80,7 @@ public class MaquinaSnacks {
             total += productos.getPrecio();
         }
         if(total <= 0.0){
-            ticket += "\n\t" + "No has agregado Snacks a la lista.";
+            ticket += "\n\t" + "No has agregado ServicioSnacksLista a la lista.";
         } else {
             ticket += "\n\t" + "total a pagar = " + total;
         }
