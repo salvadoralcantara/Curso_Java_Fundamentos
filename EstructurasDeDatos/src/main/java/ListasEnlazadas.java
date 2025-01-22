@@ -1,4 +1,4 @@
-import listaEnliazadas.LinkedList;
+import listasEnlazadas.LinkedList;
 
 public class ListasEnlazadas {
     public static void main(String[] args) {
