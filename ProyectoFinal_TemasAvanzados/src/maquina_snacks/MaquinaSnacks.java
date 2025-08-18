@@ -10,15 +10,15 @@ public class MaquinaSnacks {
     }
 
     public static void maquinaSnacks(){
-        var salir = false;
+        var salirApp = false;
         Scanner input = new Scanner(System.in);
         List<Snack> productos = new ArrayList<>();
         System.out.println("*** Maquina de ServicioSnacksLista *** + \n");
         Snacks.mostrarSnacks();
-        while (!salir){
+        while (!salirApp){
             try {
-                int opcion = mostarMenu(input);
-                salir = ejecutarOpciones(opcion, input, productos);
+                int opcion = mostrarMenu(input);
+                salirApp = ejecutarOpciones(opcion, input, productos);
             }catch (Exception e){
                 System.out.println("Ocurrio un error del tipo: " + e);
             } finally {
@@ -27,7 +27,7 @@ public class MaquinaSnacks {
         }
     }
 
-    private static int mostarMenu(Scanner input){
+    private static int mostrarMenu(Scanner input){
         System.out.print("""
                 ### ServicioSnacksLista disponibles ###
                 1. Comprar ServicioSnacksLista
@@ -57,17 +57,17 @@ public class MaquinaSnacks {
         Snacks.mostrarSnacks();
         System.out.println("Que snack deseas(id): ");
         var snackOpcion = Integer.parseInt(input.nextLine());
-        var snackEncontrado = false;
+        var contador = 0;
 
         for (var snack: Snacks.getSnacks()){
+            contador += 1;
             if (snackOpcion == snack.getIdSnack()){
                 producto.add(snack);
-                snackEncontrado = true;
                 System.out.println("Ok. Snack agregado: " + snack);
                 break;
             }
         }
-        if (snackOpcion >= 4){
+        if (snackOpcion > contador){
             System.out.println("El id: " + snackOpcion + " No esta en la lista...");
         }
     }
