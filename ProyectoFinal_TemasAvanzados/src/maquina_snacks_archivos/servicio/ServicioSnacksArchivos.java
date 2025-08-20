@@ -35,8 +35,8 @@ public class ServicioSnacksArchivos implements IServicioSnacks{
         if(!existe){
             cargarSnacksIniciales();
         }
-
     }
+
     public void cargarSnacksIniciales(){
         this.agregarSnack(new Snack("Churro", 0.15));
         this.agregarSnack(new Snack("soda", 0.60));
@@ -49,7 +49,7 @@ public class ServicioSnacksArchivos implements IServicioSnacks{
             List<String> lineas = Files.readAllLines(Paths.get(NOMBRE_ARCHIVO));
             for(String linea: lineas){
                 String[] lineaSnack = linea.split(","); // parseo separar por comas
-                var idSnack = lineaSnack[0]; // no es usada
+                var idSnack = lineaSnack[0]; // no es usada ya que el id no se guarda en el archivo.
                 var nombre = lineaSnack[1];
                 var precio = Double.parseDouble(lineaSnack[2]);
                 var snack = new Snack(nombre, precio);
@@ -72,17 +72,19 @@ public class ServicioSnacksArchivos implements IServicioSnacks{
     }
 
     private void agregarSnackArchivo(Snack snack){
-        boolean anexar = false;
         var archivo = new File(NOMBRE_ARCHIVO);
         try{
-            anexar = archivo.exists();
-            var salida = new PrintWriter(new FileWriter(archivo, anexar));
+            // "true" = modo append (agregar al final, no borrar lo anterior en el archivo)
+            var salida = new PrintWriter(new FileWriter(archivo, true));
+            // Guardar snack en el archivo
             salida.println(snack.escribirSnack());
+            // Cerrar flujo
             salida.close();
         } catch (Exception e){
-            System.out.println("Erro al agregar snacks " + e);
+            System.out.println("Error al agregar snacks " + e);
         }
     }
+
 
     @Override
     public void mostrarSnacks() {

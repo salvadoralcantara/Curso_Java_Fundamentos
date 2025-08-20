@@ -70,17 +70,17 @@ public class MaquinaSnacks {
         servicioSnacks.mostrarSnacks();
         System.out.println("Que snack deseas(id): ");
         var snackOpcion = Integer.parseInt(input.nextLine());
-        var snackEncontrado = false;
+        var snacksEncontrado = false;
 
-        for (var snack: servicioSnacks.getSnacks()){
-            if (snackOpcion == snack.getIdSnack()){
-                producto.add(snack);
-                snackEncontrado = true;
-                System.out.println("Ok. Snack agregado: " + snack);
-                break;
+        if(!snacksEncontrado){
+            for (var snack: servicioSnacks.getSnacks()){
+                if (snackOpcion == snack.getIdSnack()){
+                    producto.add(snack);
+                    System.out.println("Ok. Snack agregado: " + snack);
+                    break;
+                }
             }
-        }
-        if (snackOpcion >= 4){
+        } else {
             System.out.println("El id: " + snackOpcion + " No esta en la lista...");
         }
     }

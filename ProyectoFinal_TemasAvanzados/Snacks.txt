@@ -1,3 +1,6 @@
 1,Churro,0.15
 2,soda,0.6
-3,pan de dulce,0.254,Dulce,0.2
+3,pan de dulce,0.25
+4,Sopa de fideos,0.6
+5,medallones,2.0
+6,Cafe,2.3
