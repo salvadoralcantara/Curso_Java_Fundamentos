@@ -92,36 +92,52 @@ public class ZonaFitForma extends JFrame {
         });
     }
 
-    private void guardarCliente(){
-    if(textFieldNombre.getText().equals("")){
-        mostrarMensaje("El nombre es requerido");
-        textFieldNombre.requestFocusInWindow();
-        return;
-    }
-    if(textFieldMembresia.getText().equals("")){
-        mostrarMensaje("El valor de la Membresia es requerido");
-        textFieldMembresia.requestFocusInWindow();
-        return;
+    private void guardarCliente() {
+        if (textFieldNombre.getText().equals("")) {
+            mostrarMensaje("El nombre es requerido");
+            textFieldNombre.requestFocusInWindow();
+            return;
         }
-    // Recuperar los valores de los campos
+        if (textFieldMembresia.getText().equals("")) {
+            mostrarMensaje("El valor de la Membresia es requerido");
+            textFieldMembresia.requestFocusInWindow();
+            return;
+        }
+        // Recuperar los valores de los campos
         var nombre = textFieldNombre.getText();
         var apellido = textFieldApellido.getText();
         var membresia = Integer.parseInt(textFieldMembresia.getText());
-        // Objeto cliente
-        var cliente = new Cliente();
+
+        Cliente cliente;
+        // Si idCliente es null -> crear nuevo
+        // Si idCliente tiene valor -> cargar el existente y actualizarlo
+        if (this.idCliente == null) {
+            cliente = new Cliente();
+        } else {
+            cliente = this.clienteServicio.buscarClientePorId(this.idCliente);
+            if (cliente == null) {
+                mostrarMensaje("No se encontró el cliente para actualizar");
+                return;
+            }
+        }
+        // Asignar valores
         cliente.setNombre(nombre);
         cliente.setApellido(apellido);
         cliente.setMembresia(membresia);
-        this.clienteServicio.guardarCliente(cliente); // Guardar cliente en la base de datos
-        if (this.idCliente == null){
-            mostrarMensaje("Cliente guardado con exito");
+
+        // Guardar (JPA/Hibernate detectará si es insert o update según tenga ID)
+        this.clienteServicio.guardarCliente(cliente);
+
+        if (this.idCliente == null) {
+            mostrarMensaje("Cliente guardado con éxito");
         } else {
-            mostrarMensaje("Cliente actualizado con exito");
+            mostrarMensaje("Cliente actualizado con éxito");
         }
+
         limpiarFormulario();
         listarClientes();
+    }
 
-}
 
     private void cargarClienteSeleccionado(){
     var renglon = clientesTabla.getSelectedRow();

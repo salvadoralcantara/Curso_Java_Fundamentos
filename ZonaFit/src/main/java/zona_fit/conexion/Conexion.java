@@ -9,7 +9,7 @@ public class Conexion {
         var baseDatos = "zona_fit_db";
         var url = "jdbc:mysql://localhost:3306/" + baseDatos;
         var usuario = "root";
-        var password = "1234";
+        var password = "admin"; //dependera del password asignado en mysql en cada maquina de forma local.
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conexion = DriverManager.getConnection(url, usuario, password);
