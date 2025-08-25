@@ -99,44 +99,40 @@ public class ZonaFitForma extends JFrame {
             return;
         }
         if (textFieldMembresia.getText().equals("")) {
-            mostrarMensaje("El valor de la Membresia es requerido");
+            mostrarMensaje("El valor de la Membresía es requerido");
             textFieldMembresia.requestFocusInWindow();
             return;
         }
-        // Recuperar los valores de los campos
-        var nombre = textFieldNombre.getText();
-        var apellido = textFieldApellido.getText();
-        var membresia = Integer.parseInt(textFieldMembresia.getText());
 
-        Cliente cliente;
-        // Si idCliente es null -> crear nuevo
-        // Si idCliente tiene valor -> cargar el existente y actualizarlo
-        if (this.idCliente == null) {
-            cliente = new Cliente();
-        } else {
-            cliente = this.clienteServicio.buscarClientePorId(this.idCliente);
-            if (cliente == null) {
-                mostrarMensaje("No se encontró el cliente para actualizar");
-                return;
+        try {
+            // Recupera los valores de los campos
+            var nombre = textFieldNombre.getText();
+            var apellido = textFieldApellido.getText();
+            var membresia = Double.parseDouble(textFieldMembresia.getText()); // <-- Acepta acepta flotantes
+
+            // Objeto cliente
+            var cliente = new Cliente();
+            cliente.setNombre(nombre);
+            cliente.setApellido(apellido);
+            cliente.setMembresia((int) membresia); // Cambia el numero por un int si hace falta
+
+            this.clienteServicio.guardarCliente(cliente); // se encarga de guardar en la DB
+
+            if (this.idCliente == null) {
+                mostrarMensaje("Cliente guardado con éxito");
+            } else {
+                mostrarMensaje("Cliente actualizado con éxito");
             }
+
+            limpiarFormulario();
+            listarClientes();
+
+        } catch (NumberFormatException e) {
+            mostrarMensaje("El valor de la Membresía debe ser numérico.");
+            textFieldMembresia.requestFocusInWindow();
         }
-        // Asignar valores
-        cliente.setNombre(nombre);
-        cliente.setApellido(apellido);
-        cliente.setMembresia(membresia);
-
-        // Guardar (JPA/Hibernate detectará si es insert o update según tenga ID)
-        this.clienteServicio.guardarCliente(cliente);
-
-        if (this.idCliente == null) {
-            mostrarMensaje("Cliente guardado con éxito");
-        } else {
-            mostrarMensaje("Cliente actualizado con éxito");
-        }
-
-        limpiarFormulario();
-        listarClientes();
     }
+
 
 
     private void cargarClienteSeleccionado(){

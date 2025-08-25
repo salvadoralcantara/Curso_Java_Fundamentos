@@ -13,8 +13,7 @@ public class ZonaFitSwing {
     public static void main(String[] args) {
         FlatDarculaLaf.setup();
         //Instancia la fabrica de spring
-        ConfigurableApplicationContext contextoSpring =
-                new SpringApplicationBuilder(ZonaFitSwing.class)
+        ConfigurableApplicationContext contextoSpring = new SpringApplicationBuilder(ZonaFitSwing.class)
                         .headless(false)
                         .web(WebApplicationType.NONE)
                         .run(args);

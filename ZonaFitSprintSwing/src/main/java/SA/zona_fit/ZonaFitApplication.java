@@ -12,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.List;
 import java.util.Scanner;
 
+// Para ejecutar la app swing no quitar la anotacion de Spring siguiente y ejecutar ZonaFitSwing
+
 //@SpringBootApplication
 public class ZonaFitApplication implements CommandLineRunner {
 
